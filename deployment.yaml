@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2023-09-07T22:10:40Z"
+  generation: 1
+  name: my-flask-app
+  namespace: app
+  resourceVersion: "17130"
+  uid: fdcb57d3-316a-4107-9f66-8bf0ff5a1b49
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: my-flask-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: my-flask-app
+    spec:
+      containers:
+      - image: amirarefi/my-flask-app:0.0.1.RELEASE
+        imagePullPolicy: IfNotPresent
+        name: my-flask-app
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "256"
+            memory: 11400G
+          requests:
+            cpu: "0"
+            memory: "0"
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      nodeSelector:
+        kubernetes.io/os: linux
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2023-09-07T22:10:41Z"
+    lastUpdateTime: "2023-09-07T22:10:41Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2023-09-07T22:10:40Z"
+    lastUpdateTime: "2023-09-07T22:10:41Z"
+    message: ReplicaSet "my-flask-app-6b9b59c956" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
