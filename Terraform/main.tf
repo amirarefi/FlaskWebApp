@@ -5,8 +5,8 @@ variable "location" {}
 
 terraform {
   backend "azurerm" {
-    resource_group_name  = "cloudopsterraform"
-    storage_account_name = "cloudopsterraform"
+    resource_group_name  = "your resource group"
+    storage_account_name = "your storage account"
     container_name       = "amirtest"
     key                  = "amir_apptest.terraform.tfstate"
   }
